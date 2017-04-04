@@ -1,3 +1,3 @@
-from .urls import Urls
+from .urls import Urls  # noqa
 
 __version__ = "1.0.1"
