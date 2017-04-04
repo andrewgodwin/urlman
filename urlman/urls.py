@@ -117,7 +117,7 @@ class UrlFormatter(string.Formatter):
             else:
                 return self.urls.instance
         # Uh oh.
-        raise ValueError("No other URL called %r for use in URL format" % key)
+        raise KeyError("No other URL called %r for use in URL format" % key)
 
     def format_field(self, value, format_spec):
         if callable(value):
