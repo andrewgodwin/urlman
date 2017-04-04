@@ -5,6 +5,8 @@ try:
 except ImportError:  # pragma: no cover
     from urllib.parse import urlunparse
 
+__version__ = '1.0.1'
+
 
 def with_metaclass(meta, *bases):
     """
@@ -89,12 +91,10 @@ class UrlString(str):
     Special string subclass for URLs (for future with/without host modes)
     """
     def full(self, scheme='http', hostname='localhost', port='', params='',
-             query='', fragment='', secure=False):
+             query='', fragment=''):
         netloc = hostname
         if port:
             netloc = '%s:%s' % (netloc, port)
-        if secure:
-            scheme = '%ss' % scheme
         return urlunparse((scheme, netloc, self, params, query, fragment))
 
 
@@ -116,9 +116,6 @@ class UrlFormatter(string.Formatter):
         except ValueError:
             pass
         else:
-            # If it's a callable, call it with the outer instance as self
-            if callable(value):
-                value = value(self.urls.instance)
             return value
         # Now, fall back to looking in the context (just self)
         if key == 'self':
