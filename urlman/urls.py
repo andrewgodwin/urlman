@@ -63,9 +63,8 @@ class Urls(with_metaclass(UrlsMetaclass)):
                              (attr, self.instance.__class__.__name__))
         else:
             if callable(url):
-                value = url(self.instance)
-            else:
-                value = UrlFormatter(self).vformat(url, [], {})
+                url = url(self.instance)
+            value = UrlFormatter(self).vformat(url, [], {})
         return UrlString(value)
 
     def get_example_url(self, attr):
@@ -76,9 +75,8 @@ class Urls(with_metaclass(UrlsMetaclass)):
             raise ValueError("No URL called %r" % attr)
         else:
             if callable(url):
-                value = "??METHOD??"
-            else:
-                value = UrlFormatter(self, example=True).vformat(url, [], {})
+                url = url(self.instance)
+            value = UrlFormatter(self, example=True).vformat(url, [], {})
         return value
 
 
