@@ -1,5 +1,9 @@
 import string
 
+try:
+    from urlparse import urlunparse
+except ImportError:  # pragma: no cover
+    from urllib.parse import urlunparse
 
 
 def with_metaclass(meta, *bases):
@@ -84,6 +88,14 @@ class UrlString(str):
     """
     Special string subclass for URLs (for future with/without host modes)
     """
+    def full(self, scheme='http', hostname='localhost', port='', params='',
+             query='', fragment='', secure=False):
+        netloc = hostname
+        if port:
+            netloc = '%s:%s' % (netloc, port)
+        if secure:
+            scheme = '%ss' % scheme
+        return urlunparse((scheme, netloc, self, params, query, fragment))
 
 
 class UrlFormatter(string.Formatter):
