@@ -1,35 +1,50 @@
 import string
 
 
+
+def with_metaclass(meta, *bases):
+    """
+    Create a base class with a metaclass.
+
+    For Python 2.x and 3.x compatibility.
+    """
+    # This requires a bit of explanation: the basic idea is to make a dummy
+    # metaclass for one level of class instantiation that replaces itself with
+    # the actual metaclass.
+    class metaclass(meta):
+
+        def __new__(cls, name, this_bases, d):
+            return meta(name, bases, d)
+    return type.__new__(metaclass, 'temporary_class', (), {})
+
+
 class UrlsMetaclass(type):
     """
-    Metaclass which makes attribute access instantiate the class with the instance.
+    Metaclass which makes attribute access instantiate the class with
+    the instance.
     """
-
-    def __new__(self, name, bases, body):
-        # Collect patterns off of the body
-        body["urls"] = {}
-        for name, item in list(body.items()):
-            if name not in ["urls", "get_url", "get_example_url"] and not name.startswith("__"):
-                body["urls"][name] = item
-                del body[name]
+    def __new__(self, name, bases, attrs):
+        # Collect patterns off of the attrs
+        attrs["urls"] = {}
+        for name, item in list(attrs.items()):
+            if (name not in ["urls", "get_url", "get_example_url"] and
+                    not name.startswith("__")):
+                attrs["urls"][name] = item
+                del attrs[name]
         # Initialise
-        return type.__new__(self, name, bases, body)
+        return type.__new__(self, name, bases, attrs)
 
     def __get__(self, instance, klass):
         return self(klass, instance)
 
 
-class Urls(object):
+class Urls(with_metaclass(UrlsMetaclass)):
     """
     Special object which lets you specify URL strings for objects.
 
     Declare urls as string attributes on the object in _python 3_ string
     format. If you need to you can also specify a handler function for a url.
     """
-
-    __metaclass__ = UrlsMetaclass
-
     def __init__(self, klass, instance):
         self.klass = klass
         self.instance = instance
