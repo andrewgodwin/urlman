@@ -59,7 +59,8 @@ class Urls(with_metaclass(UrlsMetaclass)):
         try:
             url = self.urls[attr]
         except KeyError:
-            raise ValueError("No url pattern called %s on %s" % (attr, self.instance.__class__.__name__))
+            raise ValueError("No URL called %r on %r" %
+                             (attr, self.instance.__class__.__name__))
         else:
             if callable(url):
                 value = url(self.instance)
@@ -72,7 +73,7 @@ class Urls(with_metaclass(UrlsMetaclass)):
         try:
             url = self.urls[attr]
         except KeyError:
-            raise ValueError("No url pattern called %s" % attr)
+            raise ValueError("No URL called %r" % attr)
         else:
             if callable(url):
                 value = "??METHOD??"
@@ -91,7 +92,6 @@ class UrlFormatter(string.Formatter):
     """
     Special string formatter that calls methods.
     """
-
     def __init__(self, urls, example=False):
         self.example = example
         self.urls = urls
@@ -111,9 +111,9 @@ class UrlFormatter(string.Formatter):
                 value = value(self.urls.instance)
             return value
         # Now, fall back to looking in the context (just self)
-        if key == "self":
+        if key == 'self':
             if self.example:
-                return PrintMe("self")
+                return PrintMe('self')
             else:
                 return self.urls.instance
         # Uh oh.
