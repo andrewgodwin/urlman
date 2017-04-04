@@ -113,11 +113,11 @@ class UrlFormatter(string.Formatter):
 class PrintMe(object):
     """Object which prints itself, essentially."""
 
-    def __init__(self, s):
-        self.s = s
+    def __init__(self, obj):
+        self.obj = obj
 
     def __getattr__(self, attr):
-        return PrintMe(self.s + "." + attr)
+        return PrintMe(self.obj + '.' + attr)
 
     def __str__(self):
-        return "{%s}" % self.s
+        return '{%s}' % self.obj
