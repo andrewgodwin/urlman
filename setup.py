@@ -1,12 +1,25 @@
-from setuptools import setup, find_packages
-from urlman import __version__
+from setuptools import setup
 
 setup(
     name='urlman',
-    version=__version__,
+    version='1.0.1',
     description='Django URL pattern helpers',
-    packages=find_packages(),
+    url='https://github.com/andrewgodwin/urlman',
+    py_modules=['urlman'],
     author='Andrew Godwin',
     author_email='andrew@aeracode.org',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Framework :: Django',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: Implementation :: CPython',
+        'Programming Language :: Python :: Implementation :: PyPy',
+        'Operating System :: OS Independent',
+    ],
 )
-
