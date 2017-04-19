@@ -1,6 +1,14 @@
 urlman
 ------
 
+.. image:: https://travis-ci.org/andrewgodwin/urlman.svg?branch=master
+   :target: https://travis-ci.org/andrewgodwin/urlman
+   :alt: Test Status
+
+.. image:: https://codecov.io/gh/andrewgodwin/urlman/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/andrewgodwin/urlman
+   :alt: Test Coverage Status
+
 A nicer way to do URLs for Django models.
 
 Replaces things like get_absolute_url with a .urls attribute that
