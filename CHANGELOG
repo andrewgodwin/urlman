@@ -1,0 +1,5 @@
+1.1.0 (2017-04-24)
+------------------
+
+- Added .full() method to URLs to get non-relative versions
+- Python 3 support

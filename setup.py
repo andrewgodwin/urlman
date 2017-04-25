@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='urlman',
-    version='1.0.1',
+    version='1.1.0',
     description='Django URL pattern helpers',
     url='https://github.com/andrewgodwin/urlman',
     py_modules=['urlman'],
