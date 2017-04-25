@@ -1,9 +1,14 @@
+import os
 from setuptools import setup
+
+with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as fh:
+    readme_content = fh.read()
 
 setup(
     name='urlman',
     version='1.1.0',
     description='Django URL pattern helpers',
+    long_description=readme_content,
     url='https://github.com/andrewgodwin/urlman',
     py_modules=['urlman'],
     author='Andrew Godwin',
