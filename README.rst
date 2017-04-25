@@ -11,11 +11,13 @@ urlman
 
 A nicer way to do URLs for Django models.
 
-Replaces things like get_absolute_url with a .urls attribute that
+Replaces things like ``get_absolute_url`` with a ``.urls`` attribute that
 can reference other URLs and build sensible trees of things, and can
-then be accessed using instance.urls.name.
+then be accessed using ``instance.urls.name``.
 
-Example::
+Example:
+
+.. code-block:: python
 
     import urlman
 
@@ -34,12 +36,16 @@ Example::
         return redirect(group.urls.view)
 
 It's suggested that you use "view" as the equivalent name for
-`get_absolute_url`, and have a function like this on your model::
+``get_absolute_url``, and have a function like this on your model:
+
+.. code-block:: python
 
     def get_absolute_url(self):
         return self.urls.view
 
-To build a full URL use the ``full`` method like this::
+To build a full URL use the ``full`` method like this:
+
+.. code-block:: python
 
     def my_view(request):
         group = ...
