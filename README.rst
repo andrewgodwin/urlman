@@ -15,6 +15,14 @@ Replaces things like ``get_absolute_url`` with a ``.urls`` attribute that
 can reference other URLs and build sensible trees of things, and can
 then be accessed using ``instance.urls.name``.
 
+This is so you can have URLs on your model instances directly (rather than reversing
+through the url lookup functions, which is not only slow but often hard to supply
+arguments to). You can just throw ``{{ instance.urls.view }}`` into a template to get
+a link.
+
+It also lets you use Python string formatting syntax to place arguments into URLs from
+the model instance itself or from other URLs in the same set.
+
 Example:
 
 .. code-block:: python
