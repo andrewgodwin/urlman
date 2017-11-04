@@ -18,6 +18,10 @@ def post():
     return Post()
 
 
+def test_urlstring_standalone():
+    assert urlman.UrlString('/posts/').full(scheme='https', hostname='localhost') == 'https://localhost/posts/'
+
+
 def test_basic(post):
     assert post.urls.view == '/posts/hello-world/'
     assert post.urls.authors == '/posts/hello-world/authors/'
