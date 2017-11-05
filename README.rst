@@ -58,3 +58,7 @@ To build a full URL use the ``full`` method like this:
     def my_view(request):
         group = ...
         return redirect(group.urls.admin.full(scheme='https'))
+
+You can implement the `get_scheme(url)` and `get_hostname(url)` methods on your
+`Url` class to change your default theme and hostname from the urlman defaults
+of `'http'` and `'localhost'`, respectively.

@@ -29,12 +29,14 @@ class UrlsMetaclass(type):
     Metaclass which makes attribute access instantiate the class with
     the instance.
     """
+    callables = [
+        "urls", "get_url", "get_example_url", "get_scheme", "get_hostname",
+    ]
     def __new__(self, name, bases, attrs):
         # Collect patterns off of the attrs
         attrs["urls"] = {}
         for name, item in list(attrs.items()):
-            if (name not in ["urls", "get_url", "get_example_url"] and
-                    not name.startswith("__")):
+            if (name not in self.callables and not name.startswith("__")):
                 attrs["urls"][name] = item
                 del attrs[name]
         # Initialise
@@ -71,7 +73,9 @@ class Urls(with_metaclass(UrlsMetaclass)):
             if callable(url):
                 url = url(self.instance)
             value = UrlFormatter(self).vformat(url, [], {})
-        return UrlString(value)
+        url = UrlString(value)
+        url.parent = self
+        return url
 
     def get_example_url(self, attr):
         # Get the URL value
@@ -85,13 +89,24 @@ class Urls(with_metaclass(UrlsMetaclass)):
             value = UrlFormatter(self, example=True).vformat(url, [], {})
         return value
 
+    def get_scheme(self, url):
+        return 'http'
+
+    def get_hostname(self, url):
+        return 'localhost'
+
 
 class UrlString(str):
     """
     Special string subclass for URLs (for future with/without host modes)
     """
-    def full(self, scheme='http', hostname='localhost', port='', params='',
-             query='', fragment=''):
+    def full(self, scheme='', hostname='', port='', params='', query='',
+             fragment=''):
+
+        if hasattr(self, 'parent') and self.parent is not None:
+            scheme = scheme or self.parent.get_scheme(self)
+            hostname = hostname or self.parent.get_hostname(self)
+
         netloc = hostname
         if port:
             netloc = '%s:%s' % (netloc, port)
