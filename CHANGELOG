@@ -1,3 +1,9 @@
+1.2.0 (2017-12-07)
+------------------
+
+- Introduce get_scheme and get_hostname on Url classes
+
+
 1.1.0 (2017-04-24)
 ------------------
 
