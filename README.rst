@@ -62,3 +62,12 @@ To build a full URL use the ``full`` method like this:
 You can implement the `get_scheme(url)` and `get_hostname(url)` methods on your
 `Url` class to change your default theme and hostname from the urlman defaults
 of `'http'` and `'localhost'`, respectively.
+
+If you use Django REST Framework, you can use ``urlman.UrlManField`` to provide
+an object with a set of URLs. It is used like this (only the ``urls`` parameter
+is required)::
+
+   from urlman import UrlManField
+
+   class MySerializer(ModelSerializer):
+       urls = UrlManField(urls=['view', 'edit'], attribute='urls', full=True)
