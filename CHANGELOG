@@ -1,3 +1,9 @@
+1.3.0 (2019-08-13)
+------------------
+
+- Support for serializing URLs via Django REST Framework added
+
+
 1.2.0 (2017-12-07)
 ------------------
 

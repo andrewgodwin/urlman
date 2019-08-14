@@ -11,7 +11,7 @@ except ImportError:  # pragma: no cover
     class Field:
         pass
 
-__version__ = '1.2.0'
+__version__ = '1.3.0'
 
 
 def with_metaclass(meta, *bases):
