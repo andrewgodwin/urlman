@@ -109,3 +109,16 @@ def test_callable():
     assert blog.urls.all == '/blog/posts/all/'
     assert blog.urls.feed == '/blog/posts/atom/'
     assert blog.urls.get_example_url('all') == '/{self.slug}/posts/all/'
+
+
+def test_rest_framework_serializer(post):
+    field = urlman.UrlManField(urls=['authors', 'admin'])
+    relative_field = urlman.UrlManField(urls=['view'], full=False)
+
+    assert field.to_representation(post) == {
+        'authors': post.urls.authors.full(),
+        'admin': post.urls.admin.full(),
+    }
+    assert relative_field.to_representation(post) == {
+        'view': post.urls.view,
+    }
