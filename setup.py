@@ -1,31 +1,31 @@
 import os
 from setuptools import setup
 
-with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as fh:
+with open(os.path.join(os.path.dirname(__file__), "README.rst")) as fh:
     readme_content = fh.read()
 
 setup(
-    name='urlman',
-    version='1.3.0',
-    description='Django URL pattern helpers',
+    name="urlman",
+    version="1.3.0",
+    description="Django URL pattern helpers",
     long_description=readme_content,
-    url='https://github.com/andrewgodwin/urlman',
-    py_modules=['urlman'],
-    author='Andrew Godwin',
-    author_email='andrew@aeracode.org',
+    url="https://github.com/andrewgodwin/urlman",
+    py_modules=["urlman"],
+    author="Andrew Godwin",
+    author_email="andrew@aeracode.org",
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Framework :: Django',
-        'License :: OSI Approved :: Apache Software License',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy',
-        'Operating System :: OS Independent',
+        "Development Status :: 5 - Production/Stable",
+        "Framework :: Django",
+        "License :: OSI Approved :: Apache Software License",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+        "Operating System :: OS Independent",
     ],
 )

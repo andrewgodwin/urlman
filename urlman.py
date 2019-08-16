@@ -8,10 +8,12 @@ except ImportError:  # pragma: no cover
 try:
     from rest_framework.serializers import Field
 except ImportError:  # pragma: no cover
+
     class Field:
         pass
 
-__version__ = '1.3.0'
+
+__version__ = "1.3.0"
 
 
 def with_metaclass(meta, *bases):
@@ -24,10 +26,10 @@ def with_metaclass(meta, *bases):
     # metaclass for one level of class instantiation that replaces itself with
     # the actual metaclass.
     class metaclass(meta):
-
         def __new__(cls, name, this_bases, d):
             return meta(name, bases, d)
-    return type.__new__(metaclass, 'temporary_class', (), {})
+
+    return type.__new__(metaclass, "temporary_class", (), {})
 
 
 class UrlsMetaclass(type):
@@ -35,14 +37,14 @@ class UrlsMetaclass(type):
     Metaclass which makes attribute access instantiate the class with
     the instance.
     """
-    callables = [
-        "urls", "get_url", "get_example_url", "get_scheme", "get_hostname",
-    ]
+
+    callables = ["urls", "get_url", "get_example_url", "get_scheme", "get_hostname"]
+
     def __new__(self, name, bases, attrs):
         # Collect patterns off of the attrs
         attrs["urls"] = {}
         for name, item in list(attrs.items()):
-            if (name not in self.callables and not name.startswith("__")):
+            if name not in self.callables and not name.startswith("__"):
                 attrs["urls"][name] = item
                 del attrs[name]
         # Initialise
@@ -59,6 +61,7 @@ class Urls(with_metaclass(UrlsMetaclass)):
     Declare urls as string attributes on the object in _python 3_ string
     format. If you need to you can also specify a handler function for a url.
     """
+
     def __init__(self, klass, instance):
         self.klass = klass
         self.instance = instance
@@ -73,8 +76,9 @@ class Urls(with_metaclass(UrlsMetaclass)):
         try:
             url = self.urls[attr]
         except KeyError:
-            raise ValueError("No URL called %r on %r" %
-                             (attr, self.instance.__class__.__name__))
+            raise ValueError(
+                "No URL called %r on %r" % (attr, self.instance.__class__.__name__)
+            )
         else:
             if callable(url):
                 url = url(self.instance)
@@ -96,26 +100,26 @@ class Urls(with_metaclass(UrlsMetaclass)):
         return value
 
     def get_scheme(self, url):
-        return 'http'
+        return "http"
 
     def get_hostname(self, url):
-        return 'localhost'
+        return "localhost"
 
 
 class UrlString(str):
     """
     Special string subclass for URLs (for future with/without host modes)
     """
-    def full(self, scheme='', hostname='', port='', params='', query='',
-             fragment=''):
 
-        if hasattr(self, 'parent') and self.parent is not None:
+    def full(self, scheme="", hostname="", port="", params="", query="", fragment=""):
+
+        if hasattr(self, "parent") and self.parent is not None:
             scheme = scheme or self.parent.get_scheme(self)
             hostname = hostname or self.parent.get_hostname(self)
 
         netloc = hostname
         if port:
-            netloc = '%s:%s' % (netloc, port)
+            netloc = "%s:%s" % (netloc, port)
         return urlunparse((scheme, netloc, self, params, query, fragment))
 
 
@@ -123,6 +127,7 @@ class UrlFormatter(string.Formatter):
     """
     Special string formatter that calls methods.
     """
+
     def __init__(self, urls, example=False):
         self.example = example
         self.urls = urls
@@ -139,9 +144,9 @@ class UrlFormatter(string.Formatter):
         else:
             return value
         # Now, fall back to looking in the context (just self)
-        if key == 'self':
+        if key == "self":
             if self.example:
-                return PrintMe('self')
+                return PrintMe("self")
             else:
                 return self.urls.instance
         # Uh oh.
@@ -160,10 +165,10 @@ class PrintMe(object):
         self.obj = obj
 
     def __getattr__(self, attr):
-        return PrintMe(self.obj + '.' + attr)
+        return PrintMe(self.obj + "." + attr)
 
     def __str__(self):
-        return '{%s}' % self.obj
+        return "{%s}" % self.obj
 
 
 class UrlManField(Field):
@@ -172,9 +177,9 @@ class UrlManField(Field):
     read_only = True
     write_only = False
     label = None
-    source = '*'
+    source = "*"
 
-    def __init__(self, urls, attribute='urls', full=True):
+    def __init__(self, urls, attribute="urls", full=True):
         self.urls = urls
         self.url_attribute = attribute
         self.full = full
@@ -182,6 +187,8 @@ class UrlManField(Field):
     def to_representation(self, value):
         url_class = getattr(value, self.url_attribute)
         return {
-            url: getattr(url_class, url).full() if self.full else getattr(url_class, url)
+            url: getattr(url_class, url).full()
+            if self.full
+            else getattr(url_class, url)
             for url in self.urls
         }
