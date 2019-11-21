@@ -65,7 +65,9 @@ of `'http'` and `'localhost'`, respectively.
 
 If you use Django REST Framework, you can use ``urlman.UrlManField`` to provide
 an object with a set of URLs. It is used like this (only the ``urls`` parameter
-is required)::
+is required):
+
+.. code-block:: python
 
    from urlman import UrlManField
 
