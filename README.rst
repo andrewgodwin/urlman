@@ -29,7 +29,7 @@ Example:
 
     import urlman
 
-    model Group(models.Model):
+    class Group(models.Model):
 
     ...
 
