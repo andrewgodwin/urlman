@@ -135,3 +135,7 @@ def test_rest_framework_serializer(post):
         "admin": post.urls.admin.full(),
     }
     assert relative_field.to_representation(post) == {"view": post.urls.view}
+
+
+def test_qualname(post):
+    assert post.urls.__qualname__ == "Post.urls"
