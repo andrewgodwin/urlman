@@ -51,7 +51,7 @@ class UrlsMetaclass(type):
         return type.__new__(self, name, bases, attrs)
 
     def __get__(self, instance, klass):
-        return self(klass, instance)
+        return self(klass, instance, self.__name__)
 
 
 class Urls(with_metaclass(UrlsMetaclass)):
@@ -62,11 +62,12 @@ class Urls(with_metaclass(UrlsMetaclass)):
     format. If you need to you can also specify a handler function for a url.
     """
 
-    def __init__(self, klass, instance):
+    def __init__(self, klass, instance, name):
         self.klass = klass
         self.instance = instance
         self.context = {"self": self.instance}
         self.context.update(self.urls)
+        self.__qualname__ = ".".join((klass.__qualname__, name))
 
     def __getattr__(self, attr):
         return self.get_url(attr)
