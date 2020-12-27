@@ -6,7 +6,7 @@ with open(os.path.join(os.path.dirname(__file__), "README.rst")) as fh:
 
 setup(
     name="urlman",
-    version="1.3.0",
+    version="1.4.0",
     description="Django URL pattern helpers",
     long_description=readme_content,
     url="https://github.com/andrewgodwin/urlman",
@@ -24,6 +24,9 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Operating System :: OS Independent",
