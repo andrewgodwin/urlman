@@ -69,7 +69,7 @@ is required):
 
 .. code-block:: python
 
-   from urlman import UrlManField
+   from urlman.serializers import UrlManField
 
    class MySerializer(ModelSerializer):
        urls = UrlManField(urls=['view', 'edit'], attribute='urls', full=True)
