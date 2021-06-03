@@ -1,5 +1,6 @@
 import pytest
 import urlman
+import urlman.serializers
 
 
 class Post(object):
@@ -127,8 +128,8 @@ def test_callable():
 
 
 def test_rest_framework_serializer(post):
-    field = urlman.UrlManField(urls=["authors", "admin"])
-    relative_field = urlman.UrlManField(urls=["view"], full=False)
+    field = urlman.serializers.UrlManField(urls=["authors", "admin"])
+    relative_field = urlman.serializers.UrlManField(urls=["view"], full=False)
 
     assert field.to_representation(post) == {
         "authors": post.urls.authors.full(),
