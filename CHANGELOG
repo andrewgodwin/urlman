@@ -1,3 +1,8 @@
+2.0.0 (2021-06-05)
+------------------
+
+- DRF parts are now lazy-loaded, significantly improving import performance at the cost of a potential breaking change. 
+
 1.4.0 (2020-12-27)
 ------------------
 
