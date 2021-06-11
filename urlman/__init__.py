@@ -6,7 +6,7 @@ except ImportError:  # pragma: no cover
     from urllib.parse import urlunparse
 
 
-__version__ = "2.0.0"
+__version__ = "2.0.1"
 
 
 def with_metaclass(meta, *bases):

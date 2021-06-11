@@ -6,11 +6,11 @@ with open(os.path.join(os.path.dirname(__file__), "README.rst")) as fh:
 
 setup(
     name="urlman",
-    version="2.0.0",
+    version="2.0.1",
     description="Django URL pattern helpers",
     long_description=readme_content,
     url="https://github.com/andrewgodwin/urlman",
-    py_modules=["urlman"],
+    packages=["urlman"],
     author="Andrew Godwin",
     author_email="andrew@aeracode.org",
     classifiers=[

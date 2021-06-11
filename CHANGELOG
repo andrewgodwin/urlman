@@ -1,3 +1,9 @@
+2.0.1 (2021-06-10)
+------------------
+
+- Packaging error fixed (caused by change from module to package)
+
+
 2.0.0 (2021-06-05)
 ------------------
 
