@@ -9,22 +9,6 @@ except ImportError:  # pragma: no cover
 __version__ = "2.0.1"
 
 
-def with_metaclass(meta, *bases):
-    """
-    Create a base class with a metaclass.
-
-    For Python 2.x and 3.x compatibility.
-    """
-    # This requires a bit of explanation: the basic idea is to make a dummy
-    # metaclass for one level of class instantiation that replaces itself with
-    # the actual metaclass.
-    class metaclass(meta):
-        def __new__(cls, name, this_bases, d):
-            return meta(name, bases, d)
-
-    return type.__new__(metaclass, "temporary_class", (), {})
-
-
 class UrlsMetaclass(type):
     """
     Metaclass which makes attribute access instantiate the class with
@@ -47,7 +31,7 @@ class UrlsMetaclass(type):
         return self(klass, instance, self.__name__)
 
 
-class Urls(with_metaclass(UrlsMetaclass)):
+class Urls(metaclass=UrlsMetaclass):
     """
     Special object which lets you specify URL strings for objects.
 
@@ -65,7 +49,7 @@ class Urls(with_metaclass(UrlsMetaclass)):
     def __getattr__(self, attr):
         return self.get_url(attr)
 
-    def get_url(self, attr):
+    def get_url(self, attr: str) -> "UrlString":
         # Get the URL value
         try:
             url = self.urls[attr]
@@ -93,10 +77,10 @@ class Urls(with_metaclass(UrlsMetaclass)):
             value = UrlFormatter(self, example=True).vformat(url, [], {})
         return value
 
-    def get_scheme(self, url):
+    def get_scheme(self, url: "UrlString"):
         return "http"
 
-    def get_hostname(self, url):
+    def get_hostname(self, url: "UrlString"):
         return "localhost"
 
 
