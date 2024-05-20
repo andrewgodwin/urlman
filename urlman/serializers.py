@@ -14,7 +14,8 @@ class UrlManField(Field):
     label = None
     source = "*"
 
-    def __init__(self, urls, attribute="urls", full=True):
+    def __init__(self, urls, attribute="urls", full=True, **kwargs):
+        super().__init__(**kwargs)
         self.urls = urls
         self.url_attribute = attribute
         self.full = full
