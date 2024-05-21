@@ -9,12 +9,11 @@ except ImportError:  # pragma: no cover
 class UrlManField(Field):
     """Serializer class for Django Restframework."""
 
-    read_only = True
-    write_only = False
-    label = None
-    source = "*"
-
     def __init__(self, urls, attribute="urls", full=True, **kwargs):
+        kwargs.setdefault("read_only", True)
+        kwargs.setdefault("write_only", False)
+        kwargs.setdefault("label", None)
+        kwargs.setdefault("source", "*")
         super().__init__(**kwargs)
         self.urls = urls
         self.url_attribute = attribute
