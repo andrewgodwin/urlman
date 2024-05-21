@@ -1,3 +1,9 @@
+2.0.2 (2024-05-21)
+------------------
+
+- Fixed "allow_null" issue with fields on certain Django versions
+
+
 2.0.1 (2021-06-10)
 ------------------
 
@@ -7,7 +13,7 @@
 2.0.0 (2021-06-05)
 ------------------
 
-- DRF parts are now lazy-loaded, significantly improving import performance at the cost of a potential breaking change. 
+- DRF parts are now lazy-loaded, significantly improving import performance at the cost of a potential breaking change.
 
 1.4.0 (2020-12-27)
 ------------------
