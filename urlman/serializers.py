@@ -3,7 +3,8 @@ try:
 except ImportError:  # pragma: no cover
 
     class Field:
-        pass
+        def __init__(self, **kwargs):
+            pass
 
 
 class UrlManField(Field):
@@ -22,8 +23,8 @@ class UrlManField(Field):
     def to_representation(self, value):
         url_class = getattr(value, self.url_attribute)
         return {
-            url: getattr(url_class, url).full()
-            if self.full
-            else getattr(url_class, url)
+            url: (
+                getattr(url_class, url).full() if self.full else getattr(url_class, url)
+            )
             for url in self.urls
         }
