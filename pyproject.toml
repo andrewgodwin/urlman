@@ -1,0 +1,20 @@
+[project]
+name = "urlman"
+version = "2.0.3"
+authors = [{ name = "Andrew Godwin", email = "andrew@aeracode.org" }]
+description = "Django URL pattern helpers"
+readme = "README.rst"
+requires-python = ">=3.6"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "Operating System :: OS Independent",
+]
+license = { file = "LICENSE" }
+
+[project.urls]
+Homepage = "https://github.com/andrewgodwin/urlman"
+
+[build-system]
+requires = ["setuptools ~= 76.0"]
+build-backend = "setuptools.build_meta"
