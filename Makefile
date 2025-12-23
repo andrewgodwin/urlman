@@ -13,4 +13,6 @@ endif
 	git tag $(version)
 	git push
 	git push --tags
-	python setup.py sdist bdist_wheel upload
+	python3 -m build
+	python3 -m twine upload dist/*
+	rm -r build/ dist/
