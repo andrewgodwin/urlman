@@ -50,6 +50,10 @@ class Urls(metaclass=UrlsMetaclass):
         self.__wrapped__ = None
 
     def __getattr__(self, attr):
+        # Dunder attributes cannot be URLs. We raise an AttributeError,
+        # which is what Python expects when looking for them with getattr().
+        if attr.startswith("__"):
+            raise AttributeError(attr)
         return self.get_url(attr)
 
     def get_url(self, attr: str) -> "UrlString":
