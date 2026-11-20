@@ -1,3 +1,5 @@
+import copy
+
 import pytest
 import urlman
 import urlman.serializers
@@ -140,3 +142,28 @@ def test_rest_framework_serializer(post):
 
 def test_qualname(post):
     assert post.urls.__qualname__ == "Post.urls"
+
+
+def test_deepcopy_url(post):
+    url = post.urls.view
+    assert isinstance(url, urlman.UrlString)
+    assert url == "/posts/hello-world/"
+    assert url.full() == "http://localhost/posts/hello-world/"
+
+    url = copy.deepcopy(url)
+
+    assert isinstance(url, urlman.UrlString)
+    assert url == "/posts/hello-world/"
+    assert url.full() == "http://localhost/posts/hello-world/"
+
+
+def test_deepcopy_serializer_representation(post):
+    field = urlman.serializers.UrlManField(urls=["view", "authors"], full=False)
+    data = {"urls": field.to_representation(post)}
+
+    assert copy.deepcopy(data) == {
+        "urls": {
+            "view": "/posts/hello-world/",
+            "authors": "/posts/hello-world/authors/",
+        }
+    }
